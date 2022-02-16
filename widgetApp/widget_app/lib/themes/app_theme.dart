@@ -11,7 +11,17 @@ class AppTheme {
           backgroundColor: primary, elevation: 5),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-              primary: primary, shape: const StadiumBorder(), elevation: 0)));
+              primary: primary, shape: const StadiumBorder(), elevation: 0)),
+      inputDecorationTheme: InputDecorationTheme(
+        floatingLabelStyle: const TextStyle(color: primary),
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: primary),
+            borderRadius: BorderRadius.circular(15.0)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: primary),
+            borderRadius: BorderRadius.circular(15.0)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+      ));
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
       primaryColor: primary,
       appBarTheme: const AppBarTheme(color: primary, elevation: 0),
