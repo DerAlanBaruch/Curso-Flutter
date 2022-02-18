@@ -66,7 +66,7 @@ class InputsScreen extends StatelessWidget {
                   ],
                   onChanged: (value) {
                     print(value);
-                    formValues['role'] == value;
+                    formValues['role'] = value ?? '';
                   },
                 ),
                 ElevatedButton(
