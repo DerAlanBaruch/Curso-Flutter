@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/widgets.dart';
+
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String movie =
-        ModalRoute.of(context)?.settings.arguments.toString() ?? '';
+    // final String movie =
+    //     ModalRoute.of(context)?.settings.arguments.toString() ?? '';
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           const _CustomAppBar(),
           SliverList(
-            delegate: SliverChildListDelegate([_PosterAndTitle()]),
+            delegate: SliverChildListDelegate([
+              const _PosterAndTitle(),
+              const _Overview(),
+              const _Overview(),
+              const _Overview(),
+              const CastingCards() 
+            ]),
           )
         ],
       ),
@@ -26,7 +34,7 @@ class _CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: Colors.indigoAccent,
+      backgroundColor: Colors.blue[900],
       expandedHeight: 200,
       floating: false,
       pinned: true,
@@ -37,6 +45,7 @@ class _CustomAppBar extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.bottomCenter,
           color: Colors.black12,
+          padding: const EdgeInsets.only(bottom: 5),
           child: const Text(
             'movie.title',
             style: TextStyle(fontSize: 16),
@@ -44,7 +53,7 @@ class _CustomAppBar extends StatelessWidget {
         ),
         background: const FadeInImage(
             placeholder: AssetImage('assets/loading.gif'),
-            image: AssetImage('assets/loading.gif'),
+            image: NetworkImage('https://via.placeholder.com/500x300'),
             fit: BoxFit.cover),
       ),
     );
@@ -66,7 +75,7 @@ class _PosterAndTitle extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: const FadeInImage(
                 placeholder: AssetImage('assets/loading.gif'),
-                image: AssetImage('assets/loading.gif'),
+                image: NetworkImage('https://via.placeholder.com/400x300'),
                 height: 150,
                 fit: BoxFit.cover),
           ),
@@ -97,6 +106,21 @@ class _PosterAndTitle extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class _Overview extends StatelessWidget {
+  const _Overview({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      child: Text(
+          'Ut exercitation ex laboris minim in amet esse velit id amet pariatur minim dolor. Do nisi excepteur quis culpa id consequat officia. Dolore ipsum sint sunt do qui eiusmod labore ullamco id reprehenderit aliqua. Amet non Lorem do amet. Ut elit deserunt enim qui. Occaecat sint eu occaecat commodo veniam.',
+          textAlign: TextAlign.justify,
+          style: Theme.of(context).textTheme.subtitle1),
     );
   }
 }
