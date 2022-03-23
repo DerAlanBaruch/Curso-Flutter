@@ -1,4 +1,5 @@
 import 'package:disenos/widgets/background.dart';
+import 'package:disenos/widgets/card_table.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_bottom_navigation.dart';
@@ -24,7 +25,7 @@ class _HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(children: const [PageTitle()]),
+      child: Column(children: const [PageTitle(), CardTable()]),
     );
   }
 }
