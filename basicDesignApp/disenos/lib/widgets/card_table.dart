@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CardTable extends StatelessWidget {
   const CardTable({Key? key}) : super(key: key);
@@ -70,7 +71,7 @@ class _SingleCard extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        Text(text, style: TextStyle(color: color, fontSize: 18))
+        Text(text, style: GoogleFonts.poppins(color: color, fontSize: 18))
       ],
     ));
   }

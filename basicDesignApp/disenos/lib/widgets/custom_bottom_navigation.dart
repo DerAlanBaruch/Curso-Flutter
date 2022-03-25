@@ -11,6 +11,7 @@ class CustomBottomNavigation extends StatelessWidget {
         unselectedItemColor: const Color.fromRGBO(116, 117, 152, 1),
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        //currentIndex: 2,
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today_outlined), label: "Calendario"),
