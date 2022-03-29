@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_scanner/services/scan_list_service.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/map_screen.dart';
@@ -14,7 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => UiService())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => UiService()),
+        ChangeNotifierProvider(create: (_) => ScanListService())
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'QR Scanner',
