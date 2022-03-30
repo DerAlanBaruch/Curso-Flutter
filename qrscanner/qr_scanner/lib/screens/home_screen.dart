@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_scanner/screens/directions_screen.dart';
 import 'package:qr_scanner/screens/maps_screen.dart';
-import 'package:qr_scanner/services/db_service.dart';
 
-import '../models/scan_model.dart';
+import '../services/scan_list_service.dart';
 import '../services/ui_service.dart';
 import '../widgets/custom_navigatorbar.dart';
 import '../widgets/scan_button.dart';
@@ -19,7 +18,12 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Historial'),
         elevation: 0,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.delete_forever))
+          IconButton(
+              onPressed: () {
+                Provider.of<ScanListService>(context, listen: false)
+                    .deleteAllScans();
+              },
+              icon: const Icon(Icons.delete_forever))
         ],
       ),
       body: const _HomeScreenBody(),
@@ -37,12 +41,14 @@ class _HomeScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final uiService = Provider.of<UiService>(context);
     final currentIndex = uiService.selectedMenuOpt;
-    //final tempScan = ScanModel(value: 'https://www.google.com');
-    //DbService.db.deleteAllScans().then(print);
+    final scanListService =
+        Provider.of<ScanListService>(context, listen: false);
     switch (currentIndex) {
       case 0:
+        scanListService.loadScansByType('geo');
         return const MapsScreen();
       case 1:
+        scanListService.loadScansByType('http');
         return const DirectionsScreen();
       default:
         return const MapsScreen();

@@ -7,7 +7,7 @@ class ScanListService extends ChangeNotifier {
   List<ScanModel> scans = [];
   String selectedType = 'http';
 
-  newScan(String value) async {
+  Future<ScanModel> newScan(String value) async {
     final newScan = ScanModel(value: value);
     final id = await DbService.db.newScan(newScan);
     newScan.id = id;
@@ -15,6 +15,7 @@ class ScanListService extends ChangeNotifier {
       scans.add(newScan);
       notifyListeners();
     }
+    return newScan;
   }
 
   loadScans() async {
@@ -25,7 +26,7 @@ class ScanListService extends ChangeNotifier {
 
   loadScansByType(String type) async {
     final data = await DbService.db.getScansByType(type);
-    scans = (data != null ? [...data] : null)!;
+    scans = [...?data];
     selectedType = type;
     notifyListeners();
   }
@@ -38,7 +39,5 @@ class ScanListService extends ChangeNotifier {
 
   deleteScanById(int id) async {
     await DbService.db.deleteScan(id);
-    loadScansByType(selectedType);
-    notifyListeners();
   }
 }
