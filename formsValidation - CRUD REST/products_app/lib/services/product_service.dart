@@ -8,6 +8,7 @@ class ProductServices extends ChangeNotifier {
   final String _baseURL = 'project-samples-42a32-default-rtdb.firebaseio.com';
   final List<Product> products = [];
   bool isLoading = true;
+  Product? selectedProduct;
 
   ProductServices() {
     loadProducts();

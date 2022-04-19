@@ -6,6 +6,7 @@ class Product {
     required this.name,
     this.picture,
     required this.price,
+    String? id,
   });
 
   bool available;
@@ -31,4 +32,6 @@ class Product {
         "picture": picture,
         "price": price,
       };
+  Product copy() => Product(
+      available: available, name: name, price: price, id: id, picture: picture);
 }
