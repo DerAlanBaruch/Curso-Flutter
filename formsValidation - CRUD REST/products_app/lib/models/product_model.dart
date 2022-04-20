@@ -6,7 +6,7 @@ class Product {
     required this.name,
     this.picture,
     required this.price,
-    String? id,
+    this.id,
   });
 
   bool available;
