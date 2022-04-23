@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:products_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../providers/product_form_provider.dart';
 import '../services/services.dart';
@@ -61,7 +62,16 @@ class _ProductScreenBody extends StatelessWidget {
                           size: 40,
                           color: Colors.white,
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          final picker = ImagePicker();
+                          final XFile? pickedFile = await picker.pickImage(
+                              source: ImageSource.camera, imageQuality: 100);
+                          if (pickedFile == null) {
+                            return;
+                          }
+                          productServices
+                              .updateSelectedProductImage(pickedFile.path);
+                        },
                       ))
                 ],
               ),
@@ -74,11 +84,20 @@ class _ProductScreenBody extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            if (!productForm.isValidForm()) return;
-            await productServices.createOrUpdateProduct(productForm.product);
-          },
-          child: const Icon(Icons.save_sharp)),
+          onPressed: productServices.isSaving
+              ? null
+              : () async {
+                  if (!productForm.isValidForm()) return;
+                  final String? imageUrl = await productServices.uploadImage();
+                  if (imageUrl != null) productForm.product.picture = imageUrl;
+                  await productServices
+                      .createOrUpdateProduct(productForm.product);
+                },
+          child: productServices.isSaving
+              ? const CircularProgressIndicator(
+                  color: Colors.white,
+                )
+              : const Icon(Icons.save_sharp)),
     );
   }
 }
