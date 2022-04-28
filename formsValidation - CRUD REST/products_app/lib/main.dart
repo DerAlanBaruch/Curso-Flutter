@@ -30,11 +30,13 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Products App',
         initialRoute: 'login',
+        scaffoldMessengerKey: NotificationService.messageKey,
         routes: {
           'login': (_) => const LoginScreen(),
           'home': (_) => const HomeScreen(),
           'product': (_) => const ProductScreen(),
           'signup': (_) => const SignupScreen(),
+          'checking': (_) => const CheckAuthScreen(),
         },
         theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: Colors.grey[300],

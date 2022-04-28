@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:products_app/screens/screens.dart';
-import 'package:products_app/services/product_service.dart';
 import 'package:provider/provider.dart';
 
 import '../models/models.dart';
+import '../services/services.dart';
 import '../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,9 +12,20 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productServices = Provider.of<ProductServices>(context);
+    final authService = Provider.of<AuthService>(context, listen: false);
     if (productServices.isLoading) return const LoadingScreen();
     return Scaffold(
-      appBar: AppBar(title: const Text('Productos')),
+      appBar: AppBar(
+        title: const Text('Productos'),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await authService.logout();
+                Navigator.pushReplacementNamed(context, 'login');
+              },
+              icon: const Icon(Icons.logout))
+        ],
+      ),
       body: ListView.builder(
           itemCount: productServices.products.length,
           itemBuilder: (_, int index) => GestureDetector(

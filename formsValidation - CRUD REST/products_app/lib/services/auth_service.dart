@@ -12,7 +12,8 @@ class AuthService extends ChangeNotifier {
   Future<String?> createUser(String email, String password) async {
     final Map<String, dynamic> authData = {
       'email': email,
-      'password': password
+      'password': password,
+      'returnSecureToken': true
     };
 
     final url =
@@ -32,7 +33,8 @@ class AuthService extends ChangeNotifier {
   Future<String?> login(String email, String password) async {
     final Map<String, dynamic> authData = {
       'email': email,
-      'password': password
+      'password': password,
+      'returnSecureToken': true
     };
 
     final url = Uri.https(
@@ -51,5 +53,10 @@ class AuthService extends ChangeNotifier {
 
   Future logout() async {
     await storage.delete(key: 'token');
+    return;
+  }
+
+  Future<String> readToken() async {
+    return await storage.read(key: 'token') ?? '';
   }
 }
