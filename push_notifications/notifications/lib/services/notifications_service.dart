@@ -13,17 +13,17 @@ class NotificationsService {
 
   static Future _backgroundHandler(RemoteMessage message) async {
     print(message.data);
-    _messageStream.add(message.data['type'] ?? 'No title');
+    _messageStream.add(message.data['side'] ?? '1');
   }
 
   static Future _onMessageHandler(RemoteMessage message) async {
     print(message.data);
-    _messageStream.add(message.data['type'] ?? 'No title');
+    _messageStream.add(message.data['side'] ?? '1');
   }
 
   static Future _onMessageOpenApp(RemoteMessage message) async {
     print(message.data);
-    _messageStream.add(message.data['type'] ?? 'No title');
+    _messageStream.add(message.data['side'] ?? '1');
   }
 
   static Future initilizeApp() async {
